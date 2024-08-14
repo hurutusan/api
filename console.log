@@ -1,0 +1,23 @@
+async function fetchProjectStatus() {
+    try {
+        console.log('Fetching project data from:', apiUrl);
+        const response = await fetch(apiUrl);
+        console.log('API Response:', response);
+
+        if (!response.ok) {
+            throw new Error('APIリクエストが失敗しました');
+        }
+
+        const data = await response.json();
+        console.log('Project Data:', data);
+
+        document.getElementById('project-title').innerText = data.title;
+        document.getElementById('views').innerText = data.stats.views;
+        document.getElementById('favorites').innerText = data.stats.favorites;
+        document.getElementById('remixes').innerText = data.stats.remixes;
+    } catch (error) {
+        console.error('エラーが発生しました:', error);
+    }
+}
+
+window.onload = fetchProjectStatus;
